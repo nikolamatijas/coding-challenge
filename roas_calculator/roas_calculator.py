@@ -51,7 +51,7 @@ class RoasCalculator:
         Validate does data_frame contain all necessary columns for output CSV file.
 
         Returns:
-            bool: True if data_frame have all mandatory columns. Else returns False.
+            bool: True if data_frame has all mandatory columns. Else returns False.
         """
         if MANDATORY_COLUMNS.issubset(set(self.data_frame.columns)):
             return True

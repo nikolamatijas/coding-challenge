@@ -1,4 +1,4 @@
-MANDATORY_COLUMNS = ('Search term', 'Clicks', 'Currency code', 'Cost', 'Impr.', 'Conv. value')
+MANDATORY_COLUMNS = {'Search term', 'Clicks', 'Currency code', 'Cost', 'Impr.', 'Conv. value'}
 
 COLUMS_NAME_MAPPING = {
     'Search term': 'search_term',

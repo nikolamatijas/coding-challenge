@@ -1,4 +1,4 @@
-# Bidnamic Coding Challange
+# Bidnamic Coding Challenge
 
 ## Table of Contents
 * [General Info](#general-information)
@@ -17,7 +17,7 @@ format is CSV. Once ingested, application calculates Return On Ad Spend(ROAS) va
 
 Application is implemented as **python daemon** process that:
 1. Monitors a directory for new csv files.
-2. When a file arrives, parse it and calculate the ROAS for each search term and write out
+2. When a file arrives, parses it and calculates the ROAS for each search term and writes out
 a new csv file.
 3. Output file format :
  
@@ -25,6 +25,7 @@ a new csv file.
 
     _search_term, clicks, cost, impressions, conversion_value, roas_
 
+Besides the three main functionalities, the process also tracks all the important events and logs into the file logs.log. It validates the CSV files and their corresponding columns in a way that if a file itself is corrupted or if any of the columns which are mandatory for the output do not exist, the process will not calculate the ROAS. In case of corrupted rows (data), the process will clean up the data by itself.
 
 ## Prerequisites
 - Python 3.9
@@ -34,18 +35,18 @@ a new csv file.
 
 
 
-## Setup(installation and running)
+## Setup
 
-Project runs in own virtual environment isolated from any external influence. All project dependencies are listed in **requirements.txt** located in root directory. 
+Project runs in its own virtual environment isolated from any external influence. All project dependencies are listed in **requirements.txt** located in root directory. 
 
 Execute following steps in order to properly setup project:
 1. Ensure that all the prerequisites are met.
 2. Clone this repository to your file system.
-3. Create new virutal enviroment using _venv_:
+3. Create a new virutal enviroment using _venv_:
     
     `python3.9 -m venv <name_of_virutal_env>`
 
-4. Activate virtual enviroment:
+4. Activate the virtual enviroment:
 
     `source <name_of_virutal_env>/bin/activate`
 
@@ -56,31 +57,30 @@ Execute following steps in order to properly setup project:
 
     `python3.9 main.py`
 
-Process is now monitoring for new CSV files in directory. Every time when new CSV is created, process will trigger file processing.
+Process is now monitoring for new CSV files in the directory. Every time a new CSV is created, process will trigger file processing.
 
 
 
 ## Terminating process
 
-To terminate process open terminal and execute following commands:
+To terminate process, open terminal and execute the following commands:
 
-1. Find first daemon process _python3.9 main.py_:
+1. Find the daemon process _python3.9 main.py_:
 
     `ps axuw | grep main`
 
-   Output:
+   Output Example:
 
    `matijas     8890  4.3  0.7 565412 55312 ?        Sl   12:13   0:00 python3.9 main.py`
 
    `matijas     8896  0.0  0.0  17672   724 pts/2    S+   12:13   0:00 grep --color=auto main`
 
-2. Kill process using process id. In this example id is 8890.
+2. Kill the process using process id. In this example id is 8890.
 
    `kill 8890`
 
 ## Limitations
-Project can only run on UNIX based operating system, because for implementation of python daemon process
-[python-daemon](https://pypi.org/project/python-daemon/) is used.
+Project can only run on UNIX based operating system, because [python-daemon](https://pypi.org/project/python-daemon/) package is used for implementation of python daemon process.
 
 
 ## Contact

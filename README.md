@@ -57,7 +57,11 @@ Execute following steps in order to properly setup project:
 
     `python3.9 main.py`
 
-Process is now monitoring for new CSV files in the directory. Every time a new CSV is created, process will trigger file processing.
+Alternatively, instead of running process from source code, you can install roas-calculator package with command:
+
+     pip install .
+
+While running, process constantly monitors for new CSV files in the directory. Every time a new CSV is created, process will trigger file processing and ROAS calculation.
 
 
 

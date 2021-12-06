@@ -1,27 +1,13 @@
 import logging
-import time
 
 import daemon
-from watchdog.observers import Observer
 
-from roas_calculator.csv_handler import CsvHandler
+from roas_calculator.csv_observer import CsvObserver
 
 
 def run_daemon_process():
-    """
-    Initialize and start observer thread that schedules watching directories and dispatches calls to event handlers for
-    any new CSV file.
-    """
-    observer = Observer()
-    observer.schedule(event_handler=CsvHandler(), path='.', recursive=False)
-    observer.daemon = True
-    observer.start()
-    try:
-        while True:
-            time.sleep(1)
-    except KeyboardInterrupt:
-        observer.stop()
-        observer.join()
+    csv_observer = CsvObserver()
+    csv_observer.start_observer()
 
 
 if __name__ == '__main__':

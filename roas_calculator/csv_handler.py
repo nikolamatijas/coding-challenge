@@ -1,4 +1,6 @@
 import logging
+import os
+import time
 
 from watchdog.events import PatternMatchingEventHandler, FileCreatedEvent
 
@@ -25,6 +27,17 @@ class CsvHandler(PatternMatchingEventHandler):
         It will try to calculate ROAS for search terms from CSV file.
         """
         logging.info('Detected new CSV file %s', event.src_path)
+
+        # Ensures that file creating/coping/moving/extracting is fully completed before processing file.
+        init_size = -1
+        while True:
+            current_size = os.path.getsize(event.src_path)
+            if current_size == init_size:
+                break
+            else:
+                init_size = os.path.getsize(event.src_path)
+                time.sleep(1)
+
         roas_calculator = RoasCalculator(event.src_path)
         if (roas_calculator.data_frame is not None) and (roas_calculator.validate_data_frame_columns()):
             roas_calculator.clean_data_frame()
